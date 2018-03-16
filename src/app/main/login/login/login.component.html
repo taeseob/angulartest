@@ -1,0 +1,20 @@
+<div>
+  <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <div>
+      <label>ID</label>
+      <input type="text" id="loginId" name="loginId" formControlName="loginIdFormControl" [(ngModel)]="loginId">
+    </div>
+    <div>
+      <label>NICKNAME</label>
+      <input type="text" id="nickName" name="nickName" formControlName="nickNameFormControl" [(ngModel)]="nickName">
+    </div>
+    <div>
+      loginForm.value : {{ loginForm.value | json }} <br>
+      loginForm.status : {{ loginForm.status }} <br>
+      loginForm.valid : {{ loginForm.valid }}
+    </div>
+    <div>
+      <button type="submit" [disabled]="!loginForm.valid" name="submitButton">Submit</button>
+    </div>
+  </form>
+</div>

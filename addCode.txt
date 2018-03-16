@@ -1,0 +1,130 @@
+1. header
+<div><a href="/">Todos Angular Example</a></div>
+
+div {background-color: coral;}
+
+2. footer
+.right {
+  position: absolute;
+  right: 0px;
+}
+
+3. todoList
+  todoList = [
+    {
+      'id': 1,
+      'item': '빨래',
+      'done': false
+    },
+    {
+      'id': 2,
+      'item': '청소',
+      'done': true
+    },
+    {
+      'id': 3,
+      'item': '요리',
+      'done': true
+    }
+  ];
+
+4. binding 연습
+  newItem: Todo = {
+    id: 1,
+    item: '청소'
+  };
+
+<h2>Details</h2>
+<div><span>id: </span>{{newItem.id}}</div>
+<div><span>item: </span>{{newItem.item}}</div>
+<div><span>done: </span>{{newItem.done}}</div>
+
+
+5. todo component
+
+  addTodo() {
+  }
+
+  complete(target) {
+  }
+
+  edit(target) {
+  }
+
+  remove(target) {
+  }
+
+  cancelEditing(target) {
+  }
+
+  stopEditing(target, inputValue) {
+  }
+
+  updateRequest(t) {
+  }
+
+  removeRequest(t) {
+  }
+
+6. todo html
+<header class="header">
+  <h1>Todos</h1>
+  <input class="new-todo" placeholder="What needs to be done?" (keyup.enter)="addTodo()">
+  <p>{{newItem.item}}
+</header>
+
+
+<section class="main">
+  <ul class="todo-list">
+    <li *ngFor="let todo of todoList" [class.completed]="todo.done" [class.editing]="todo.editing">
+
+      <div class="view">
+        <input class="toggle" type="checkbox" (click)="complete(todo)" [checked]="todo.done">
+        <label (dblclick)="edit(todo)">{{ todo.item }}</label>
+        <button class="destroy" (click)="remove()"></button>
+      </div>
+      <input class="edit" *ngIf="todo.editing" [value]="todo.item" #editedtodo (blur)="cancelEditing(todo)"
+             (keyup.enter)="stopEditing(todo, editedtodo)" (keyup.escape)="cancelEditing(todo)">
+
+    </li>
+  </ul>
+</section>
+
+7. todo-item
+
+// tslint:disable-next-line
+
+
+  @Input() todo;
+
+
+
+
+  edit() {
+  }
+
+  stopEditing(inputValue) {
+  }
+
+  cancelEditing() {
+  }
+
+  complete() {
+  }
+
+  remove() {
+  }
+
+  update(item) {
+  }
+
+
+
+
+    @Output()
+    removeItem: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output()
+    updateItem: EventEmitter<any> = new EventEmitter<any>();
+
+

@@ -1,0 +1,46 @@
+# Node 설치
+
+# 프록시 셋팅
+cmd 창에서 아래 내용 실행
+npm config set proxy http://168.219.61.252:8080
+npm config set https-proxy http://168.219.61.252:8080
+npm config set strict-ssl false
+
+# IDE 설치
+- VS Code 설치 (무료) 또는 WebStorm(IntelliJ) (라이센스 있는 경우)
+  또는 쓰던 atom이나 sublime txt
+- 설치한 IDE에 위에 써 있는 proxy내용 셋팅
+- VS code사용자는 아래 extension 추가 설치
+ "Angular Language Service",
+ "TSLint for Visual Studio Code",
+ "Typescript toolbox" 또는 "typescript hero" 또는 "Typescript import"
+
+# Angular Cli 설치
+npm install -g @angular/cli
+
+# 신규 프로젝트 생성
+(D:\workspace 하위에 폴더 생성한다 가정하면)
+D:\workspace\ > ng new todo
+
+# 추가 css 설치
+D:\workspace\todo > npm install todomvc-app-css todomvc-common --save
+
+# .angular-cli.json 의
+styles 에
+  "../node_modules/todomvc-common/base.css",
+  "../node_modules/todomvc-app-css/index.css"
+
+"defaults"에
+  "component": {
+    "spec": false
+  }
+
+# IE를 위해서는
+polyfills.ts 에 IE 부분을 주석 해제해 준다.
+
+# 백엔드 프로젝트 설정
+첨부된 todo_backend.zip 압축을 품
+(D:\workspace\todo_backend 위치에 압축 풀었다 가정하면)
+D:\workspace\todo_backend > npm install
+
+

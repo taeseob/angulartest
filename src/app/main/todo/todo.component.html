@@ -1,0 +1,12 @@
+<header class="header">
+  <h1>Todos</h1>
+  <input class="new-todo" placeholder="What needs to be done?" [(ngModel)]="newItem.item" (keyup.enter)="addTodo()">
+</header>
+<section class="main">
+  <ul class="todo-list">
+    <li todoItem *ngFor="let todo of todoList" [todoItem]="todo"
+        [class.completed]="todo.done" [class.editing]="todo.editing"
+        (updateItem)="updateRequest($event)"
+        (removeItem)="removeRequest($event)"></li>
+  </ul>
+</section>
