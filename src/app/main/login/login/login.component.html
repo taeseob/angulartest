@@ -11,7 +11,9 @@
     <div>
       loginForm.value : {{ loginForm.value | json }} <br>
       loginForm.status : {{ loginForm.status }} <br>
-      loginForm.valid : {{ loginForm.valid }}
+      loginForm.valid : {{ loginForm.valid }} <br>
+      Date.now : {{ today | currency:'USD':true }} <br>
+      Custom Pipe : {{ loginId | custom:'hello':'world' }}
     </div>
     <div>
       <button type="submit" [disabled]="!loginForm.valid" name="submitButton">Submit</button>

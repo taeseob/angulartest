@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from './custom-validator';
+import { CustomPipe } from '../../../etc/custom.pipe';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,8 @@ export class LoginComponent implements OnInit {
       [Validators.required, Validators.pattern('[A-Z]+'), Validators.minLength(3), Validators.maxLength(7)]
     ))
   });
+
+  today: number = Date.now();
 
   constructor(
     private route: ActivatedRoute,
