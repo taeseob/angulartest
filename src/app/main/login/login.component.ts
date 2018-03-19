@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CustomValidator } from './custom-validator';
-import { CustomPipe } from '../../../etc/custom.pipe';
 
 @Component({
   selector: 'app-login',

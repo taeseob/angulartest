@@ -12,7 +12,7 @@
       loginForm.value : {{ loginForm.value | json }} <br>
       loginForm.status : {{ loginForm.status }} <br>
       loginForm.valid : {{ loginForm.valid }} <br>
-      Date.now : {{ today | currency:'USD':true }} <br>
+      Date.now : {{ today | date:'y년 M월 d일 h시 m분 s초' }} <br>
       Custom Pipe : {{ loginId | custom:'hello':'world' }}
     </div>
     <div>
