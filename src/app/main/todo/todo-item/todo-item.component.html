@@ -1,3 +1,5 @@
+<!--<li [class.completed]="todoItem.done" [class.editing]="todoItem.editing">-->
+
 <div class="view">
   <input class="toggle" type="checkbox" (click)="complete()" [checked]="todoItem.done">
   <label (dblclick)="edit(todoItem)">{{ todoItem.item }}</label>
@@ -5,3 +7,5 @@
 </div>
 <input class="edit" *ngIf="todoItem.editing" [value]="todoItem.item" #editedtodo (blur)="cancelEditing(todoItem)"
        (keyup.enter)="stopEditing(editedtodo)" (keyup.escape)="cancelEditing(todoItem)">
+
+<!--</li>-->

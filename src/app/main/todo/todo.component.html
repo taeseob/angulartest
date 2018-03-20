@@ -1,7 +1,34 @@
+<!--<h2>Details</h2>-->
+<!--<div><span>id: </span>{{newItem.id}}</div>-->
+<!--<div><span>item: </span>{{newItem.item}}</div>-->
+<!--<div><span>done: </span>{{newItem.done}}</div>-->
+
+
 <header class="header">
   <h1>Todos</h1>
   <input class="new-todo" placeholder="What needs to be done?" [(ngModel)]="newItem.item" (keyup.enter)="addTodo()">
+  <!--<p>{{newItem.item}}</p>-->
 </header>
+
+
+<!--ngFor연습-->
+<!--<section class="main">
+  <ul class="todoItem-list">
+    <li *ngFor="let todoItem of todoList" [class.completed]="todoItem.done" [class.editing]="todoItem.editing">
+      &lt;!&ndash;[ngClass] = "{'editing': todoItem.editing }" [ngClass] = "todoItem.editing ? 'editing' : ''" &ndash;&gt;
+
+      <div class="view">
+        <input class="toggle" type="checkbox" (click)="complete(todoItem)" [checked]="todoItem.done">
+        <label (dblclick)="edit(todoItem)">{{ todoItem.item }}</label>
+        <button class="destroy" (click)="remove(todoItem)"></button>
+      </div>
+      <input class="edit" *ngIf="todoItem.editing" [value]="todoItem.item" #editedtodo (blur)="cancelEditing(todoItem)"
+             (keyup.enter)="stopEditing(todoItem, editedtodo)" (keyup.escape)="cancelEditing(todoItem)">
+
+    </li>
+  </ul>
+</section>-->
+
 <section class="main">
   <ul class="todo-list">
     <li todoItem *ngFor="let todo of todoList" [todoItem]="todo"

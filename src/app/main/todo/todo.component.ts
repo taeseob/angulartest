@@ -73,9 +73,7 @@ export class TodoComponent implements OnInit {
   }
 
   updateRequest(t) {
-    this.todoList.concat(t);
-    // console.log(JSON.stringify(t));
-    console.log(JSON.stringify(this.todoList));
+    console.log(JSON.stringify(t));
   }
 
   removeRequest(t) {

@@ -16,7 +16,7 @@ export class TodoItemComponent implements OnInit {
   @Output()
   updateItem: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor( ) {
+  constructor() {
   }
 
   ngOnInit() {

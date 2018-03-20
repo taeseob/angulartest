@@ -6,22 +6,19 @@ import { AppComponent } from './app.component';
 import { BaseModule } from './base/base.module';
 import { MainModule } from './main/main.module';
 import { AppRoutingModule } from './/app-routing.module';
-import { CustomPipe } from './shared/custom.pipe';
-import {AuthGuard} from './shared/auth-guard.service';
-
+import { AuthGuardService } from './shared/auth-guard.service';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    CustomPipe
+    AppComponent
   ],
   imports: [
     BrowserModule,
     BaseModule,
     MainModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

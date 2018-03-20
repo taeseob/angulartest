@@ -1,29 +1,31 @@
-<div *ngIf="!logined ">
+<div *ngIf="!checkLoggedIn() ">
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
     <div>
       <label>ID</label>
-      <input type="text" formControlName="loginId">
-      <p *ngIf="loginId.dirty && loginId.errors?.startsWithNumber" style="color:red;">숫자로 시작하면 안됩니다.</p>
+      <input type="text" formControlName="loginIdControl">
+      <p *ngIf="loginForm.get('loginIdControl').errors?.startsWithNumber" style="color:red;">숫자로 시작하면 안됩니다.</p>
     </div>
     <div>
       <label>NICKNAME</label>
-      <input type="text" formControlName="nickName">
-      <p *ngIf="loginForm.get('nickName').dirty && loginForm.get('nickName').errors?.required" style="color:red;">닉네임을 입력해주세요</p>
-      <p *ngIf="loginForm.get('nickName').dirty && !loginForm.get('nickName').errors?.required && loginForm.get('nickName').errors?.minlength" style="color:red;">4자리 이상으로 입력해주세요.</p>
+      <input type="text" formControlName="nickNameControl">
+      <p *ngIf="nickNameControl.errors?.required" style="color:red;">닉네임을 입력해주세요</p>
+      <p *ngIf="!nickNameControl.errors?.required && nickNameControl.errors?.pattern" style="color:red;">대문자만 입력해주세요.</p>
+      <p *ngIf="!nickNameControl.errors?.required && nickNameControl.errors?.minlength" style="color:red;">3자리 이상으로 입력해주세요.</p>
+      <p *ngIf="!nickNameControl.errors?.required && nickNameControl.errors?.maxlength" style="color:red;">7자리 이하로 입력해주세요.</p>
     </div>
     <div>
       loginForm.value : {{ loginForm.value | json }} <br>
       loginForm.status : {{ loginForm.status }} <br>
       loginForm.valid : {{ loginForm.valid }} <br>
+      Date.now : {{ today | number }} <br>
       Date.now : {{ today | date:'yyyy-MM-dd HH:mm a z':'+0900' }} <br>
-      <!--Custom Pipe : {{ loginId | custom:'hello':'world' }}-->
+      Custom Pipe : {{ loginForm.value.loginIdControl | custom }}
     </div>
     <div>
-      <button type="submit" name="submitButton">Submit</button>
+      <button type="submit" [disabled]="!loginForm.valid">Submit</button>
     </div>
   </form>
 </div>
-
-<div *ngIf="logined">
+<div *ngIf="checkLoggedIn()">
   <button (click)="logout()">Logout</button>
 </div>

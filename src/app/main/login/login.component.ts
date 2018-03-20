@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomValidator} from '../../shared/custom-validator';
-import {LoginService} from './login.service';
+import { CustomValidator } from './../../shared/custom.validator';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -9,63 +9,46 @@ import {LoginService} from './login.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  public logined = false;
-
-  public loginForm: FormGroup;
-
+  loginForm: FormGroup;
+  loginIdControl: FormControl;
+  nickNameControl: FormControl;
   today: number = Date.now();
 
-  constructor(private loginService: LoginService) {
-  }
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.loginIdControl = new FormControl('', CustomValidator.startsWithNumber());
+    this.nickNameControl = new FormControl('', [
+      Validators.required, Validators.pattern('[A-Z]+'), Validators.minLength(3), Validators.maxLength(7)
+    ]);
     this.loginForm = new FormGroup({
-      loginId: new FormControl('', CustomValidator.startsWithNumber()),
-      nickName: new FormControl('', [Validators.required, Validators.minLength(4)])
+      loginIdControl: this.loginIdControl,
+      nickNameControl: this.nickNameControl
     });
-  }
-
-  get loginId() {
-    return this.loginForm.get('loginId');
   }
 
   onSubmit() {
-    if (this.loginForm.valid) {
-      if (this.loginForm.value.loginId === 'GUEST') {
-        this.loginForm.reset();
-        this.loginService.login()
-          .subscribe(
-            (val) => {
-              this.logined = val;
-            });
-      } else {
-        alert('틀림');
-      }
+    alert('submit : ' + this.loginForm.value.loginIdControl + ' : ' + this.loginForm.value.nickNameControl);
+    if (this.loginForm.value.loginIdControl === 'GUEST') {
+      sessionStorage.setItem('isLoggedIn', 'true');
+      this.router.navigate(['todo']);
     } else {
-      this.validate(this.loginForm);
+      this.loginForm.reset();
     }
   }
 
-
-  logout(): void {
-    this.loginService.logout()
-      .subscribe(
-        (val) => {
-          this.logined = val;
-        });
+  logout() {
+    alert('logout');
+    sessionStorage.setItem('isLoggedIn', 'false');
+    this.router.navigate(['login']);
   }
 
-  validate(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
-        control.markAsTouched();
-        control.markAsDirty();
-      } else if (control instanceof FormGroup) {
-        this.validate(control);
-      }
-    });
-
+  checkLoggedIn() {
+    if (!sessionStorage.getItem('isLoggedIn') || sessionStorage.getItem('isLoggedIn') === 'false') {
+      return false;
+    } else {
+      return true;
+    }
   }
+
 }

@@ -5,8 +5,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CustomPipe implements PipeTransform {
 
-  transform(value: string, search: string, newValue: string): any {
-    return value.replace(search, newValue);
+  transform(value: any, args?: any): any {
+    return value + '님, 안녕하세요';
   }
 
 }
