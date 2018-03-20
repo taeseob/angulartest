@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { CustomValidator } from './custom-validator';
+import {Component, OnInit} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CustomValidator} from '../../shared/custom-validator';
+import {LoginService} from './login.service';
 
 @Component({
   selector: 'app-login',
@@ -10,32 +10,62 @@ import { CustomValidator } from './custom-validator';
 })
 export class LoginComponent implements OnInit {
 
-  loginId: string;
-  nickName: string;
+  public logined = false;
 
-  loginForm = new FormGroup({
-    loginIdFormControl: new FormControl('', CustomValidator.startsWithNumber()),
-    nickNameFormControl: new FormControl('', Validators.compose(
-      [Validators.required, Validators.pattern('[A-Z]+'), Validators.minLength(3), Validators.maxLength(7)]
-    ))
-  });
+  public loginForm: FormGroup;
 
   today: number = Date.now();
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router
-  ) { }
+  constructor(private loginService: LoginService) {
+  }
 
   ngOnInit() {
+    this.loginForm = new FormGroup({
+      loginId: new FormControl('', CustomValidator.startsWithNumber()),
+      nickName: new FormControl('', [Validators.required, Validators.minLength(4)])
+    });
+  }
+
+  get loginId() {
+    return this.loginForm.get('loginId');
   }
 
   onSubmit() {
-    alert('onSubmit : ' + this.loginId);
-    if (this.loginId === 'GUEST') {
-      this.router.navigate(['todo']);
+    if (this.loginForm.valid) {
+      if (this.loginForm.value.loginId === 'GUEST') {
+        this.loginForm.reset();
+        this.loginService.login()
+          .subscribe(
+            (val) => {
+              this.logined = val;
+            });
+      } else {
+        alert('틀림');
+      }
     } else {
-      this.router.navigate(['login']);
+      this.validate(this.loginForm);
     }
+  }
+
+
+  logout(): void {
+    this.loginService.logout()
+      .subscribe(
+        (val) => {
+          this.logined = val;
+        });
+  }
+
+  validate(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched();
+        control.markAsDirty();
+      } else if (control instanceof FormGroup) {
+        this.validate(control);
+      }
+    });
+
   }
 }

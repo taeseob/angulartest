@@ -1,11 +1,11 @@
 <app-header></app-header>
 
-<section class="todoapp">
+<nav>
+  <a routerLink="/login" routerLinkActive="active">Login</a>
+  <a routerLink="/todo" routerLinkActive="active">Todo</a>
+</nav>
 
-  <nav>
-      <a routerLink="/login" routerLinkActive="active">Login</a>
-      <a routerLink="/todo" routerLinkActive="active">Todo</a>
-  </nav>
+<section class="todoapp">
 
   <router-outlet></router-outlet>
 

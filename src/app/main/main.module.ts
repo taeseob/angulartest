@@ -10,6 +10,8 @@ import { LoginModule } from './login/login.module';
     CommonModule,
     TodoModule,
     LoginModule
-  ]
+  ],
+  exports: [TodoComponent],
+  declarations: []
 })
 export class MainModule { }

@@ -6,7 +6,7 @@ export class CustomValidator {
         return (control: AbstractControl): {[key: string]: any} => {
             const valid = /^\d/.test(control.value);
             if (valid && control.value !== '' && !isNaN(control.value.charAt(0))) {
-                return { 'startsWithNumber': {value: true} };
+                return { 'startsWithNumber': true };
             }
             return null;
         };
